@@ -6,10 +6,10 @@ EcoLearn AI est une plateforme innovante qui combine apprentissage personnalisé
 Développer une application web complète en 5 jours avec une équipe de 4 personnes, en suivant une méthodologie Agile/DevOps rigoureuse.
 
 👥 Équipe & Rôles
-Scrum Master & DevOps Engineer - [Votre Nom]
-Product Owner & Backend Lead - [Nom Membre 2]
-Frontend Lead - [Nom Membre 3]
-Full-Stack Developer - [Nom Membre 4]
+Scrum Master & DevOps Engineer 
+Product Owner & Backend Lead -
+Frontend Lead 
+Full-Stack Developer 
 
 🗓️ Sprint de 5 Jours
 Jour 1 : Setup & Architecture
