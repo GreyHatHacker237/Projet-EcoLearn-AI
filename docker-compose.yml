@@ -1,0 +1,66 @@
+version: '3.8'
+
+services:
+  postgres:
+    image: postgres:15-alpine
+    environment:
+      POSTGRES_DB: ecolearn
+      POSTGRES_USER: admin
+      POSTGRES_PASSWORD: ${DB_PASSWORD:-changeme}
+    volumes:
+      - postgres_data:/var/lib/postgresql/data
+      - ./database/init:/docker-entrypoint-initdb.d
+    healthcheck:
+      test: ["CMD-SHELL", "pg_isready -U admin"]
+      interval: 10s
+      timeout: 5s
+      retries: 5
+
+  learning-service:
+    build:
+      context: ./learning-service
+      dockerfile: Dockerfile
+    ports:
+      - "8000:8000"
+    environment:
+      DATABASE_URL: postgresql://admin:${DB_PASSWORD}@postgres:5432/ecolearn
+      OPENAI_API_KEY: ${OPENAI_API_KEY}
+      PORT: 8000
+    depends_on:
+      postgres:
+        condition: service_healthy
+    healthcheck:
+      test: ["CMD", "curl", "-f", "http://localhost:8000/health"]
+      interval: 30s
+      timeout: 10s
+      retries: 3
+
+  carbon-service:
+    build:
+      context: ./carbon-service
+      dockerfile: Dockerfile
+    ports:
+      - "8001:8001"
+    environment:
+      DATABASE_URL: postgresql://admin:${DB_PASSWORD}@postgres:5432/ecolearn
+      REFORESTATION_API_KEY: ${REFORESTATION_API_KEY}
+      PORT: 8001
+    depends_on:
+      postgres:
+        condition: service_healthy
+
+  frontend:
+    build:
+      context: ./frontend
+      dockerfile: Dockerfile
+    ports:
+      - "3000:80"
+    environment:
+      REACT_APP_LEARNING_API: http://localhost:8000
+      REACT_APP_CARBON_API: http://localhost:8001
+    depends_on:
+      - learning-service
+      - carbon-service
+
+volumes:
+  postgres_data:
