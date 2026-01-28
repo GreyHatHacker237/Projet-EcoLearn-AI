@@ -1,5 +1,5 @@
 🌱 EcoLearn AI - Plateforme d'Apprentissage Écologique
-📋 Vue d'Ensemble
+
 EcoLearn AI est une plateforme innovante qui combine apprentissage personnalisé par IA et compensation carbone automatique. Chaque session d'apprentissage générée par OpenAI GPT calcule son empreinte carbone et finance automatiquement la plantation d'arbres.
 
 🎯 Objectif du Projet
