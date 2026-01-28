@@ -1,67 +1,96 @@
 🌱 EcoLearn AI - Plateforme d'Apprentissage Écologique
+📋 Vue d'Ensemble
+EcoLearn AI est une plateforme innovante qui combine apprentissage personnalisé par IA et compensation carbone automatique. Chaque session d'apprentissage générée par OpenAI GPT calcule son empreinte carbone et finance automatiquement la plantation d'arbres.
 
+🎯 Objectif du Projet
+Développer une application web complète en 5 jours avec une équipe de 4 personnes, en suivant une méthodologie Agile/DevOps rigoureuse.
 
-Apprenez intelligemment, compensez durablement.
-Plateforme IA qui génère des parcours d'apprentissage personnalisés et compense automatiquement l'empreinte carbone en plantant des arbres.
+👥 Équipe & Rôles
+Scrum Master & DevOps Engineer - [Votre Nom]
+Product Owner & Backend Lead - [Nom Membre 2]
+Frontend Lead - [Nom Membre 3]
+Full-Stack Developer - [Nom Membre 4]
 
-📋 Table des Matières
-🌟 Concept
+🗓️ Sprint de 5 Jours
+Jour 1 : Setup & Architecture
+Mes Responsabilités (Scrum Master & DevOps):
+✅ Configurer les 3 conteneurs Docker (FastAPI, React, PostgreSQL)
 
-🏗️ Architecture
+✅ Mettre en place GitHub Actions avec pipeline de base
 
-🚀 Démarrage Rapide
+✅ Configurer l'environnement de développement local
 
-🐳 Docker & Docker Compose
+✅ Initialiser le repository avec structure du projet
 
-🔧 Services
+✅ Organiser le planning sprint et cérémonies Agile
 
-📊 API Documentation
+Livrables DevOps Jour 1:
+Repository GitHub organisé
 
-🔄 Pipeline CI/CD
+Docker Compose avec 3 services
 
-📁 Structure du Projet
+Pipeline CI de base (.github/workflows/ci.yml)
 
-🧪 Tests
+Structure de projet standardisée
 
-📈 Monitoring
+Tableau Kanban GitHub Projects
 
-🚢 Déploiement
+Jour 2 : Services Core
+Mes Responsabilités:
+✅ Configurer pytest et SonarCloud
 
-🤝 Contribution
+✅ Écrire les tests d'intégration
 
-📄 Licence
+✅ Configurer CloudWatch pour monitoring
 
-📞 Contact
+✅ Pipeline CI avec 4 stages (build, test, analyse, deploy)
 
-🌟 Concept
-EcoLearn AI transforme l'apprentissage numérique en action environnementale positive :
+✅ Faciliter le daily standup et gestion des blocages
 
-📚 Apprentissage Personnalisé : Parcours générés par IA adaptés à votre niveau et objectifs
+Livrables DevOps Jour 2:
+Tests automatisés et coverage > 80%
 
-🌳 Calcul Carbone Automatique : Empreinte carbone calculée en temps réel pour chaque session
+Intégration SonarCloud pour qualité code
 
-💰 Compensation Intelligente : Financement automatique de plantation d'arbres via partenaires
+Configuration CloudWatch pour métriques
 
-📊 Transparence Totale : Dashboard interactif pour visualiser votre impact environnemental
+Pipeline CI/CD complet
 
-🎯 Chiffres Clés
-1 heure d'apprentissage = ~0.04 kg CO₂
+Documentation des processus DevOps
 
-1 arbre planté = ~21 kg CO₂ absorbé/an
+Jour 3 : Frontend & Visualisations
+Mes Responsabilités:
+🔄 Optimisation infrastructure Docker
 
-Compensation automatique à partir de 0.002 arbres/session
+🔄 Configuration monitoring avancé
 
-🏗️ Architecture
+🔄 Gestion des secrets et sécurité
 
+🔄 Coordination équipe et risque management
 
+Jour 4 : Intégration & Features
+Mes Responsabilités:
+🔄 Configurer AWS ECS pour déploiement production
 
+🔄 Setup de l'infrastructure cloud
 
+🔄 Configuration des variables d'environnement
 
+🔄 Sécurisation des secrets (API keys)
 
+🔄 Préparation sprint review
 
+Jour 5 : Finalisation & Déploiement
+Mes Responsabilités:
+🔄 Déploiement sur AWS ECS
 
+🔄 Vérification du monitoring CloudWatch
 
+🔄 Configuration des alertes
 
+🔄 Documentation du déploiement
+
+🔄 Animation de la rétrospective sprint
 
 
 Stack Technique :
