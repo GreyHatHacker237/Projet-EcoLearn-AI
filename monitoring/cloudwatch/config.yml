@@ -1,0 +1,32 @@
+# CloudWatch Configuration for EcoLearn AI
+metrics:
+  - namespace: EcoLearnAI
+    metrics:
+      - name: LearningSessions
+        unit: Count
+        description: "Number of learning sessions generated"
+      
+      - name: CarbonCalculations
+        unit: Count
+        description: "Number of carbon footprint calculations"
+      
+      - name: TreesPlanted
+        unit: Count
+        description: "Number of trees planted through platform"
+      
+      - name: APILatency
+        unit: Milliseconds
+        description: "API response time p95"
+
+alarms:
+  - alarmName: HighErrorRate
+    metricName: ErrorRate
+    threshold: 5.0
+    comparisonOperator: GreaterThanThreshold
+    evaluationPeriods: 2
+    
+  - alarmName: HighLatency
+    metricName: APILatency
+    threshold: 1000  # 1 second
+    comparisonOperator: GreaterThanThreshold
+    evaluationPeriods: 3

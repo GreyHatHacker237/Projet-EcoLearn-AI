@@ -37,3 +37,22 @@ test:
 	docker-compose exec learning-service pytest || echo "Tests learning-service non disponibles"
 	docker-compose exec carbon-service pytest || echo "Tests carbon-service non disponibles"
 '@ | Set-Content -Path Makefile -Encoding UTF8
+# Monitoring commands
+monitor:
+	@echo "📊 Starting monitoring tools..."
+	docker-compose up -d prometheus grafana
+
+monitor-logs:
+	docker-compose logs -f
+
+metrics:
+	@echo "📈 Available metrics:"
+	@echo "- Learning Service: http://localhost:8000/metrics"
+	@echo "- Carbon Service: http://localhost:8001/metrics"
+
+test-integration:
+	cd tests/integration && python -m pytest test_api_integration.py -v
+
+test-load:
+	@echo "🚀 Running load tests with k6..."
+	k6 run tests/load/load-test.js
