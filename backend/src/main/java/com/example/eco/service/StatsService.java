@@ -232,4 +232,43 @@ public class StatsService {
             mostStudied
         );
     }
+
+    /**
+     * Historique carbone avec pagination complète
+     */
+    public PageResponse<CarbonHistoryResponse.CarbonDataPoint> getCarbonHistoryPaginated(
+            Long userId,
+            LocalDate startDate,
+            LocalDate endDate,
+            int page,
+            int size) {
+        
+        if (startDate == null) {
+            startDate = LocalDate.now().minusDays(30);
+        }
+        if (endDate == null) {
+            endDate = LocalDate.now();
+        }
+        
+        // Pagination avec Spring Data
+        Pageable pageable = PageRequest.of(page, size);
+        Page<CarbonMetrics> metricsPage = carbonMetricsRepository
+            .findByUserIdOrderByDateDesc(userId, pageable);
+        
+        // Conversion
+        List<CarbonHistoryResponse.CarbonDataPoint> dataPoints = metricsPage.getContent().stream()
+            .map(m -> new CarbonHistoryResponse.CarbonDataPoint(
+                m.getDate(),
+                m.getSessionCarbon(),
+                m.getTotalCarbon()
+            ))
+            .collect(Collectors.toList());
+        
+        return PageResponse.of(
+            dataPoints,
+            metricsPage.getNumber(),
+            metricsPage.getSize(),
+            metricsPage.getTotalElements()
+        );
+    }
 }

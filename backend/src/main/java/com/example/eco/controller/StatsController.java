@@ -93,4 +93,26 @@ public class StatsController {
         LearningProgressResponse response = statsService.getLearningProgress(userId);
         return ResponseEntity.ok(response);
     }
+
+    /**
+     * GET /api/stats/carbon-history/paginated
+     * Version paginée de l'historique carbone
+     */
+    @GetMapping("/carbon-history/paginated")
+    @Operation(
+        summary = "Historique carbone paginé",
+        description = "Version paginée avec métadonnées complètes"
+    )
+    public ResponseEntity<PageResponse<CarbonHistoryResponse.CarbonDataPoint>> getCarbonHistoryPaginated(
+            @RequestParam Long userId,
+            @RequestParam(required = false) @DateTimeFormat(iso = DateTimeFormat.ISO.DATE) LocalDate startDate,
+            @RequestParam(required = false) @DateTimeFormat(iso = DateTimeFormat.ISO.DATE) LocalDate endDate,
+            @RequestParam(defaultValue = "0") int page,
+            @RequestParam(defaultValue = "10") int size) {
+        
+        PageResponse<CarbonHistoryResponse.CarbonDataPoint> response = 
+            statsService.getCarbonHistoryPaginated(userId, startDate, endDate, page, size);
+        
+        return ResponseEntity.ok(response);
+    }
 }
