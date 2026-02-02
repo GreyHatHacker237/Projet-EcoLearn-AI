@@ -8,89 +8,77 @@ import com.example.eco.dto.LearningPathResponse;
 import com.example.eco.dto.PersonalizeRequest;
 import com.example.eco.model.LearningPath;
 import com.example.eco.repository.LearningPathRepository;
-import lombok.RequiredArgsConstructor;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.http.*;
 import org.springframework.stereotype.Service;
 import org.springframework.web.client.RestTemplate;
 
+import java.time.LocalDateTime;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 import java.util.stream.Collectors;
 
 @Service
-@RequiredArgsConstructor
 public class LearningService {
 
-    private final LearningPathRepository repository;
-    private final RestTemplate restTemplate;
-    private final OpenAIConfig openAIConfig;
+    @Autowired
+    private LearningPathRepository repository;
+    
+    @Autowired
+    private RestTemplate restTemplate;
+    
+    @Autowired
+    private OpenAIConfig openAIConfig;
     
     @Value("${openai.api.url}")
     private String openAiUrl;
 
-    /**
-     * Génère un parcours d'apprentissage avec OpenAI
-     */
     public LearningPathResponse generateLearningPath(LearningPathRequest request) {
         
-        // Construction du prompt pour OpenAI
         String prompt = buildPrompt(request.getTopic(), request.getDifficulty());
-        
-        // Appel à l'API OpenAI
         String generatedContent = callOpenAI(prompt);
         
-        // Sauvegarde en base de données
         LearningPath learningPath = new LearningPath();
         learningPath.setUserId(request.getUserId());
         learningPath.setTitle("Parcours " + request.getTopic());
         learningPath.setContent(generatedContent);
         learningPath.setDifficulty(request.getDifficulty());
+        learningPath.setCreatedAt(LocalDateTime.now());
         
         LearningPath saved = repository.save(learningPath);
         
         return mapToResponse(saved);
     }
 
-    /**
-     * Personnalise un parcours existant selon le niveau
-     */
     public LearningPathResponse personalizeLearningPath(PersonalizeRequest request) {
         
         LearningPath learningPath = repository.findById(request.getPathId())
             .orElseThrow(() -> new RuntimeException("Parcours introuvable"));
         
-        // Prompt de personnalisation
         String prompt = String.format(
-            "Adapte ce contenu d'apprentissage au niveau : %s\n\nContenu actuel :\n%s\n\n" +
-            "Simplifie ou approfondit selon le niveau demandé.",
-            request.getUserLevel(),
+            "Adapte ce contenu d'apprentissage selon les retours : %s\nStyle d'apprentissage : %s\n\nContenu actuel :\n%s\n\n" +
+            "Adapte le contenu selon les retours et le style d'apprentissage.",
+            request.getFeedback(),
+            request.getLearningStyle(),
             learningPath.getContent()
         );
         
-        // Appel OpenAI
         String personalizedContent = callOpenAI(prompt);
         
-        // Mise à jour
         learningPath.setContent(personalizedContent);
-        learningPath.setDifficulty(request.getUserLevel());
         
         LearningPath updated = repository.save(learningPath);
         
         return mapToResponse(updated);
     }
 
-    /**
-     * Récupère tous les parcours d'un utilisateur
-     */
     public List<LearningPathResponse> getUserPaths(Long userId) {
         return repository.findByUserId(userId).stream()
             .map(this::mapToResponse)
             .collect(Collectors.toList());
     }
-
-    // ========== MÉTHODES PRIVÉES ==========
 
     private String buildPrompt(String topic, String difficulty) {
         return String.format("""
@@ -119,12 +107,10 @@ public class LearningService {
 
     private String callOpenAI(String prompt) {
         try {
-            // Headers
             HttpHeaders headers = new HttpHeaders();
             headers.setContentType(MediaType.APPLICATION_JSON);
             headers.setBearerAuth(openAIConfig.getApiKey());
             
-            // Body
             Map<String, Object> body = new HashMap<>();
             body.put("model", "gpt-3.5-turbo");
             body.put("messages", List.of(
@@ -136,7 +122,6 @@ public class LearningService {
             
             HttpEntity<Map<String, Object>> entity = new HttpEntity<>(body, headers);
             
-            // Appel API
             ResponseEntity<String> response = restTemplate.exchange(
                 openAiUrl,
                 HttpMethod.POST,
@@ -144,7 +129,6 @@ public class LearningService {
                 String.class
             );
             
-            // Extraction du contenu
             ObjectMapper mapper = new ObjectMapper();
             JsonNode root = mapper.readTree(response.getBody());
             return root.path("choices").get(0)

@@ -1,20 +1,16 @@
 package com.example.eco.dto;
 
-import jakarta.validation.constraints.NotBlank;
-import lombok.Data;
-import lombok.NoArgsConstructor;
-import lombok.AllArgsConstructor;
-
-@Data
-@NoArgsConstructor
-@AllArgsConstructor
 public class LearningPathRequest {
-    
-    @NotBlank(message = "Le sujet est obligatoire")
-    private String topic;
-    
-    @NotBlank(message = "La difficulté est obligatoire")
-    private String difficulty; // "débutant", "intermédiaire", "avancé"
-    
     private Long userId;
+    private String topic;
+    private String difficulty;
+
+    public Long getUserId() { return userId; }
+    public void setUserId(Long userId) { this.userId = userId; }
+    
+    public String getTopic() { return topic; }
+    public void setTopic(String topic) { this.topic = topic; }
+    
+    public String getDifficulty() { return difficulty; }
+    public void setDifficulty(String difficulty) { this.difficulty = difficulty; }
 }

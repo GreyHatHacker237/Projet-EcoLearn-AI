@@ -7,7 +7,7 @@ import com.example.eco.service.LearningService;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.tags.Tag;
 import jakarta.validation.Valid;
-import lombok.RequiredArgsConstructor;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
@@ -16,16 +16,12 @@ import java.util.List;
 
 @RestController
 @RequestMapping("/api/learning")
-@RequiredArgsConstructor // Lombok génère le constructeur pour injection
 @Tag(name = "Learning", description = "API de gestion des parcours d'apprentissage")
 public class LearningController {
 
-    private final LearningService learningService;
+    @Autowired
+    private LearningService learningService;
 
-    /**
-     * POST /api/learning/generate
-     * Génère un nouveau parcours d'apprentissage avec OpenAI
-     */
     @PostMapping("/generate")
     @Operation(
         summary = "Générer un parcours d'apprentissage",
@@ -41,10 +37,6 @@ public class LearningController {
         }
     }
 
-    /**
-     * POST /api/learning/personalize
-     * Personnalise un parcours existant selon le niveau de l'utilisateur
-     */
     @PostMapping("/personalize")
     @Operation(
         summary = "Personnaliser un parcours",
@@ -62,10 +54,6 @@ public class LearningController {
         }
     }
 
-    /**
-     * GET /api/learning/paths/{userId}
-     * Récupère tous les parcours d'un utilisateur
-     */
     @GetMapping("/paths/{userId}")
     @Operation(
         summary = "Récupérer les parcours d'un utilisateur",

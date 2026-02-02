@@ -1,13 +1,7 @@
 package com.example.eco.dto;
 
-import lombok.Data;
-import lombok.NoArgsConstructor;
-import lombok.AllArgsConstructor;
 import java.time.LocalDateTime;
 
-@Data
-@NoArgsConstructor
-@AllArgsConstructor
 public class LearningPathResponse {
     private Long id;
     private Long userId;
@@ -15,4 +9,20 @@ public class LearningPathResponse {
     private String content;
     private String difficulty;
     private LocalDateTime createdAt;
+
+    // Getters
+    public Long getId() { return id; }
+    public Long getUserId() { return userId; }
+    public String getTitle() { return title; }
+    public String getContent() { return content; }
+    public String getDifficulty() { return difficulty; }
+    public LocalDateTime getCreatedAt() { return createdAt; }
+
+    // Setters
+    public void setId(Long id) { this.id = id; }
+    public void setUserId(Long userId) { this.userId = userId; }
+    public void setTitle(String title) { this.title = title; }
+    public void setContent(String content) { this.content = content; }
+    public void setDifficulty(String difficulty) { this.difficulty = difficulty; }
+    public void setCreatedAt(LocalDateTime createdAt) { this.createdAt = createdAt; }
 }

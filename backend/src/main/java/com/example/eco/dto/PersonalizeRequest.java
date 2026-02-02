@@ -1,23 +1,19 @@
 package com.example.eco.dto;
 
-import lombok.Data;
-import lombok.NoArgsConstructor;
-import lombok.AllArgsConstructor;
-
-@Data
-@NoArgsConstructor
-@AllArgsConstructor
 public class PersonalizeRequest {
-    private Long pathId;           // correspond à getPathId()
-    private String userPreferences; // si ton service attend getUserLevel(), renommer
-    private String learningStyle;   // correspond à getContent() ou ajuster selon le service
+    private Long pathId;
+    private String feedback;
+    private String learningStyle;
 
-    // Optionnel : ajouter des getters personnalisés si le service attend d'autres noms
-    public String getUserLevel() {
-        return userPreferences; // mapping pour correspondre à l'ancien code
-    }
-
-    public String getContent() {
-        return learningStyle;   // mapping pour correspondre à l'ancien code
+    public Long getPathId() { return pathId; }
+    public void setPathId(Long pathId) { this.pathId = pathId; }
+    
+    public String getFeedback() { return feedback; }
+    public void setFeedback(String feedback) { this.feedback = feedback; }
+    
+    public String getLearningStyle() { return learningStyle; }
+    public void setLearningStyle(String learningStyle) { this.learningStyle = learningStyle; }
+    public void setUserLevel(String string) {
+        throw new UnsupportedOperationException("Unimplemented method 'setUserLevel'");
     }
 }

@@ -1,33 +1,17 @@
 package com.example.eco.service;
 
-import lombok.RequiredArgsConstructor;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.cache.CacheManager;
 import org.springframework.stereotype.Service;
 
-import java.util.Objects;
-
 @Service
-@RequiredArgsConstructor
 public class CacheService {
 
-    private final CacheManager cacheManager;
+    @Autowired
+    private CacheManager cacheManager;
 
-    /**
-     * Invalide le cache pour un utilisateur spécifique
-     */
-    public void evictUserCache(Long userId) {
-        Objects.requireNonNull(cacheManager.getCache("carbonHistory")).clear();
-        Objects.requireNonNull(cacheManager.getCache("treesPlanted")).clear();
-        Objects.requireNonNull(cacheManager.getCache("learningProgress")).clear();
-    }
-
-    /**
-     * Invalide tout le cache
-     */
-    public void evictAllCaches() {
+    public void clearAllCaches() {
         cacheManager.getCacheNames()
-            .forEach(cacheName -> 
-                Objects.requireNonNull(cacheManager.getCache(cacheName)).clear()
-            );
+            .forEach(cacheName -> cacheManager.getCache(cacheName).clear());
     }
 }

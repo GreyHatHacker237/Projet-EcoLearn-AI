@@ -1,6 +1,5 @@
 package com.example.eco.controller;
 
-import com.example.eco.dto.PageResponse;
 import com.example.eco.dto.CarbonHistoryResponse;
 import com.example.eco.dto.LearningProgressResponse;
 import com.example.eco.dto.TreePlantationResponse;
@@ -8,7 +7,7 @@ import com.example.eco.service.StatsService;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.Parameter;
 import io.swagger.v3.oas.annotations.tags.Tag;
-import lombok.RequiredArgsConstructor;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.format.annotation.DateTimeFormat;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
@@ -17,16 +16,12 @@ import java.time.LocalDate;
 
 @RestController
 @RequestMapping("/api/stats")
-@RequiredArgsConstructor
 @Tag(name = "Statistics", description = "API de statistiques et analyses")
 public class StatsController {
 
-    private final StatsService statsService;
+    @Autowired
+    private StatsService statsService;
 
-    /**
-     * GET /api/stats/carbon-history
-     * Récupère l'historique de l'empreinte carbone
-     */
     @GetMapping("/carbon-history")
     @Operation(
         summary = "Historique de l'empreinte carbone",
@@ -58,10 +53,6 @@ public class StatsController {
         return ResponseEntity.ok(response);
     }
 
-    /**
-     * GET /api/stats/trees-planted
-     * Récupère l'évolution des plantations d'arbres
-     */
     @GetMapping("/trees-planted")
     @Operation(
         summary = "Évolution des plantations d'arbres",
@@ -78,10 +69,6 @@ public class StatsController {
         return ResponseEntity.ok(response);
     }
 
-    /**
-     * GET /api/stats/learning-progress
-     * Récupère la progression de l'apprentissage
-     */
     @GetMapping("/learning-progress")
     @Operation(
         summary = "Progression de l'apprentissage",
@@ -95,23 +82,19 @@ public class StatsController {
         return ResponseEntity.ok(response);
     }
 
-    /**
-     * GET /api/stats/carbon-history/paginated
-     * Version paginée de l'historique carbone
-     */
     @GetMapping("/carbon-history/paginated")
     @Operation(
         summary = "Historique carbone paginé",
         description = "Version paginée avec métadonnées complètes"
     )
-    public ResponseEntity<PageResponse<CarbonHistoryResponse.CarbonDataPoint>> getCarbonHistoryPaginated(
+    public ResponseEntity<CarbonHistoryResponse> getCarbonHistoryPaginated(
             @RequestParam Long userId,
             @RequestParam(required = false) @DateTimeFormat(iso = DateTimeFormat.ISO.DATE) LocalDate startDate,
             @RequestParam(required = false) @DateTimeFormat(iso = DateTimeFormat.ISO.DATE) LocalDate endDate,
             @RequestParam(defaultValue = "0") int page,
             @RequestParam(defaultValue = "10") int size) {
         
-        PageResponse<CarbonHistoryResponse.CarbonDataPoint> response = 
+        CarbonHistoryResponse response = 
             statsService.getCarbonHistoryPaginated(userId, startDate, endDate, page, size);
         
         return ResponseEntity.ok(response);

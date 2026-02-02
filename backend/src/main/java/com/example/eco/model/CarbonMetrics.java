@@ -1,45 +1,31 @@
 package com.example.eco.model;
 
 import jakarta.persistence.*;
-import lombok.AllArgsConstructor;
-import lombok.Data;
-import lombok.NoArgsConstructor;
-import org.hibernate.annotations.CreationTimestamp;
-
 import java.time.LocalDate;
-import java.time.LocalDateTime;
 
 @Entity
-@Table(
-    name = "carbon_metrics",
-    indexes = {
-        @Index(name = "idx_carbon_user_id", columnList = "user_id"),
-        @Index(name = "idx_carbon_date", columnList = "date"),
-        @Index(name = "idx_carbon_user_date", columnList = "user_id, date")
-    }
-)
-@Data
-@NoArgsConstructor
-@AllArgsConstructor
+@Table(name = "carbon_metrics")
 public class CarbonMetrics {
-
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
-
-    @Column(name = "user_id", nullable = false)
+    
     private Long userId;
-
-    @Column(name = "session_carbon", nullable = false)
     private Double sessionCarbon;
-
-    @Column(name = "total_carbon", nullable = false)
     private Double totalCarbon;
-
-    @Column(name = "date", nullable = false)
     private LocalDate date;
 
-    @CreationTimestamp
-    @Column(name = "created_at", updatable = false)
-    private LocalDateTime createdAt;
+    // Getters
+    public Long getId() { return id; }
+    public Long getUserId() { return userId; }
+    public Double getSessionCarbon() { return sessionCarbon; }
+    public Double getTotalCarbon() { return totalCarbon; }
+    public LocalDate getDate() { return date; }
+
+    // Setters
+    public void setId(Long id) { this.id = id; }
+    public void setUserId(Long userId) { this.userId = userId; }
+    public void setSessionCarbon(Double sessionCarbon) { this.sessionCarbon = sessionCarbon; }
+    public void setTotalCarbon(Double totalCarbon) { this.totalCarbon = totalCarbon; }
+    public void setDate(LocalDate date) { this.date = date; }
 }
