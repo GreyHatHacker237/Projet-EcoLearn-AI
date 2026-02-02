@@ -2,7 +2,7 @@ spring:
   datasource:
     url: jdbc:postgresql://localhost:5432/ecolearn
     username: postgres
-    password: decho1234
+    password: ${POSTGRES_PASSWORD}
 
   jpa:
     hibernate:

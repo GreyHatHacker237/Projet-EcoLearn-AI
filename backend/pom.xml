@@ -97,6 +97,18 @@
 					</excludes>
 				</configuration>
 			</plugin>
+
+			<!-- Plugin pour charger .env -->
+			<plugin>
+				<groupId>org.codehaus.mojo</groupId>
+				<artifactId>exec-maven-plugin</artifactId>
+				<version>3.1.0</version>
+				<configuration>
+					<environmentVariables>
+						<OPENAI_API_KEY>${env.OPENAI_API_KEY}</OPENAI_API_KEY>
+					</environmentVariables>
+				</configuration>
+			</plugin>
 		</plugins>
 	</build>
 </project>
