@@ -1,11 +1,11 @@
-package com.project.service;
+package com.example.eco.service;
 
-import com.project.config.OpenAIConfig;
-import com.project.dto.LearningPathRequest;
-import com.project.dto.LearningPathResponse;
-import com.project.dto.PersonalizeRequest;
-import com.project.model.LearningPath;
-import com.project.repository.LearningPathRepository;
+import com.example.eco.config.OpenAIConfig;
+import com.example.eco.dto.LearningPathRequest;
+import com.example.eco.dto.LearningPathResponse;
+import com.example.eco.dto.PersonalizeRequest;
+import com.example.eco.model.LearningPath;
+import com.example.eco.repository.LearningPathRepository;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;

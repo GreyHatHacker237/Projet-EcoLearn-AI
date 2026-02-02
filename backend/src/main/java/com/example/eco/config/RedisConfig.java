@@ -1,4 +1,4 @@
-package com.project.config;
+package com.example.eco.config;
 
 import org.springframework.cache.CacheManager;
 import org.springframework.cache.annotation.EnableCaching;

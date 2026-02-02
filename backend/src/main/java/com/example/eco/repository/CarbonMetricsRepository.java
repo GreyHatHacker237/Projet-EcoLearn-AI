@@ -1,6 +1,6 @@
-package com.project.repository;
+package com.example.eco.repository;
 
-import com.project.model.CarbonMetrics;
+import com.example.eco.model.CarbonMetrics;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.jpa.repository.JpaRepository;

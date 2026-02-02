@@ -1,4 +1,4 @@
-package com.project.service;
+package com.example.eco.service;
 
 import lombok.RequiredArgsConstructor;
 import org.springframework.cache.CacheManager;

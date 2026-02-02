@@ -1,9 +1,10 @@
-package com.project.controller;
+package com.example.eco.controller;
 
-import com.project.dto.CarbonHistoryResponse;
-import com.project.dto.LearningProgressResponse;
-import com.project.dto.TreePlantationResponse;
-import com.project.service.StatsService;
+import com.example.eco.dto.PageResponse;
+import com.example.eco.dto.CarbonHistoryResponse;
+import com.example.eco.dto.LearningProgressResponse;
+import com.example.eco.dto.TreePlantationResponse;
+import com.example.eco.service.StatsService;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.Parameter;
 import io.swagger.v3.oas.annotations.tags.Tag;

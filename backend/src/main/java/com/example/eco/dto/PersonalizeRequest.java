@@ -1,14 +1,23 @@
-package com.project.dto;
+package com.example.eco.dto;
 
 import lombok.Data;
-import java.time.LocalDateTime;
+import lombok.NoArgsConstructor;
+import lombok.AllArgsConstructor;
 
 @Data
-public class LearningPathResponse {
-    private Long id;
-    private Long userId;
-    private String title;
-    private String content;
-    private String difficulty;
-    private LocalDateTime createdAt;
+@NoArgsConstructor
+@AllArgsConstructor
+public class PersonalizeRequest {
+    private Long pathId;           // correspond à getPathId()
+    private String userPreferences; // si ton service attend getUserLevel(), renommer
+    private String learningStyle;   // correspond à getContent() ou ajuster selon le service
+
+    // Optionnel : ajouter des getters personnalisés si le service attend d'autres noms
+    public String getUserLevel() {
+        return userPreferences; // mapping pour correspondre à l'ancien code
+    }
+
+    public String getContent() {
+        return learningStyle;   // mapping pour correspondre à l'ancien code
+    }
 }

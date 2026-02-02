@@ -1,10 +1,10 @@
-package com.project.controller;
+package com.example.eco.controller;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
-import com.project.dto.LearningPathRequest;
-import com.project.dto.LearningPathResponse;
-import com.project.dto.PersonalizeRequest;
-import com.project.service.LearningService;
+import com.example.eco.dto.LearningPathRequest;
+import com.example.eco.dto.LearningPathResponse;
+import com.example.eco.dto.PersonalizeRequest;
+import com.example.eco.service.LearningService;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.web.servlet.WebMvcTest;

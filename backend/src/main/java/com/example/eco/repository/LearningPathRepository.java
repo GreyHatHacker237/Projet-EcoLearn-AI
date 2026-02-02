@@ -1,6 +1,6 @@
-package com.project.repository;
+package com.example.eco.repository;
 
-import com.project.model.LearningPath;
+import com.example.eco.model.LearningPath;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Repository;
 

@@ -1,9 +1,9 @@
-package com.project.controller;
+package com.example.eco.controller;
 
-import com.project.dto.LearningPathRequest;
-import com.project.dto.LearningPathResponse;
-import com.project.dto.PersonalizeRequest;
-import com.project.service.LearningService;
+import com.example.eco.dto.LearningPathRequest;
+import com.example.eco.dto.LearningPathResponse;
+import com.example.eco.dto.PersonalizeRequest;
+import com.example.eco.service.LearningService;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.tags.Tag;
 import jakarta.validation.Valid;
@@ -16,7 +16,7 @@ import java.util.List;
 
 @RestController
 @RequestMapping("/api/learning")
-@RequiredArgsConstructor
+@RequiredArgsConstructor // Lombok génère le constructeur pour injection
 @Tag(name = "Learning", description = "API de gestion des parcours d'apprentissage")
 public class LearningController {
 
@@ -33,12 +33,11 @@ public class LearningController {
     )
     public ResponseEntity<LearningPathResponse> generateLearningPath(
             @Valid @RequestBody LearningPathRequest request) {
-        
         try {
             LearningPathResponse response = learningService.generateLearningPath(request);
             return ResponseEntity.status(HttpStatus.CREATED).body(response);
         } catch (Exception e) {
-            throw new RuntimeException("Erreur lors de la génération du parcours: " + e.getMessage());
+            throw new RuntimeException("Erreur lors de la génération du parcours: " + e.getMessage(), e);
         }
     }
 
@@ -53,14 +52,13 @@ public class LearningController {
     )
     public ResponseEntity<LearningPathResponse> personalizeLearningPath(
             @Valid @RequestBody PersonalizeRequest request) {
-        
         try {
             LearningPathResponse response = learningService.personalizeLearningPath(request);
             return ResponseEntity.ok(response);
         } catch (RuntimeException e) {
             return ResponseEntity.status(HttpStatus.NOT_FOUND).build();
         } catch (Exception e) {
-            throw new RuntimeException("Erreur lors de la personnalisation: " + e.getMessage());
+            throw new RuntimeException("Erreur lors de la personnalisation: " + e.getMessage(), e);
         }
     }
 
@@ -75,7 +73,6 @@ public class LearningController {
     )
     public ResponseEntity<List<LearningPathResponse>> getUserPaths(
             @PathVariable Long userId) {
-        
         List<LearningPathResponse> paths = learningService.getUserPaths(userId);
         return ResponseEntity.ok(paths);
     }
