@@ -1,13 +1,10 @@
 spring:
   datasource:
-    url: jdbc:postgresql://localhost:5432/ecolearn
-    username: postgres
-    password: ${POSTGRES_PASSWORD}
+    url: jdbc:postgresql://localhost:5432/ecolearn_db
+    username: eco_user
+    password: eco_pass
 
   jpa:
     hibernate:
       ddl-auto: update
     show-sql: true
-
-server:
-  port: 8080
