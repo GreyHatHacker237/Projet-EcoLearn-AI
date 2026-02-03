@@ -3,6 +3,7 @@ package com.example.eco.service;
 import com.fasterxml.jackson.databind.JsonNode;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.example.eco.config.OpenAIConfig;
+import com.example.eco.config.OpenAPIConfig;
 import com.example.eco.dto.LearningPathRequest;
 import com.example.eco.dto.LearningPathResponse;
 import com.example.eco.dto.PersonalizeRequest;
